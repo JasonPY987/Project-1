@@ -1,7 +1,7 @@
 import random
 from django import forms
 from django.shortcuts import render, redirect
-from markdown2 import Markdown
+import markdown
 from django.shortcuts import render
 from . import util
 
@@ -21,7 +21,23 @@ def index(request):
     })
 
 
-def entry(request, entry):
+
+def entry(request, title):
+    html_content = convert_MKDWN_to_HTML(title)
+    if html_content == None:
+        return render(request, "encyclopedia/NoEntryHere.html", {
+            "message": "this entry does not exist!"
+        })
+    else:
+        return render(request, "encyclopedia/entry.html", {
+            "title": title,
+            "content": html_content,
+        })
+
+
+
+
+"""def entry(request, entry):
     markdowner = Markdown(entry)
     entryPage = util.get_entry(entry)
     if entryPage is none:
@@ -32,4 +48,4 @@ def entry(request, entry):
         return render(request, "encyclopedia/entry.html", {
             "entry": markdowner.convert(entryPage),
             "entryTitle": entry
-        })
+        })"""
