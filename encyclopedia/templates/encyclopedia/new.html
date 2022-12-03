@@ -1,0 +1,26 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    NO EXISTING WEBSITE
+{% endblock %}
+
+{% block body %}
+    <h1> New page: Thank you for helping build our WIKI!! </h1>
+
+    <form action="{% url 'new_page' %}" method="POST">
+        {% csrf_token %}
+        <label> Title: </label>
+        <input type="text" name="title" placeholder="Add your title">
+        br
+        <label> make your entry </label>
+        <br>
+        <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="10"></textarea>
+        <br>
+        <button type="submit" class="btn btn-outline-dark">Submit</button>
+    </form>
+
+
+
+
+{% endblock %}
+
