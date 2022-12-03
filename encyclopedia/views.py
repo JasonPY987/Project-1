@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 import markdown
 from django.shortcuts import render
 from . import util
+import random
 
 
 def convert_MKDWN_to_HTML(title):
@@ -104,3 +105,12 @@ def save_edit(request):
             "entry": html,
             "entryTitle": input_title
         })
+
+def rand(request):
+    allEntries = util.list_entries()
+    rand_entry = random.choice(allEntries)
+    html = convert_MKDWN_to_HTML(rand_entry)
+    return render(request, "encyclopedia/entry.html", {
+        "title": rand_entry, 
+        "content": html
+    })
